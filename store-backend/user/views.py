@@ -2,6 +2,7 @@
 
 from rest_framework import generics, permissions
 from .serializers import UserRegisterSerializer
+from django.contrib.auth.models import User
 
 # 회원가입 API (POST 요청 처리)
 class RegisterView(generics.CreateAPIView):
