@@ -37,6 +37,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('product.urls')), 
     path('api/', include('user.urls')),  # 사용자 관련 URL 추가 : user앱 URL 추가
+    path('api/order/', include('order.urls')),  # 주문 관련 URL 추가 : order앱 URL 추가
 
     # --- JWT 인증 API 추가 ---
     # POST /api/token/ : 로그인 (username, password로 토큰 획득)
