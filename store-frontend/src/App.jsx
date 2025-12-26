@@ -1,23 +1,59 @@
+import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import './App.css'
-import Header from './components/common/Header'
-import LoginPage from './pages/LoginPage'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import ScrollTop from './components/ScrollTop'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import QuickMenu from './components/QuickMenu'
+import Slide from './components/Slide'
+import Main from './app/page'
+import Brand from './pages/Brand'
+import Menu from './pages/Menu'
+import Franchise from './pages/Franchise'
+import Inquiry from './pages/Inquiry'
+import Store from './pages/Store'
+import Login from './auth/Login'
+import Signup from './auth/Signup'
+import FindID from './auth/FindID'
+import FindPw from './auth/FindPw'
 
-function App() {
+function AppContent() {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
+  return (
+    <>
+      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Slide isOpen={isOpen} setIsOpen={setIsOpen} />
+      <QuickMenu />
+
+      <Routes>
+        <Route path="/" element={<Main isOpen={isOpen} setIsOpen={setIsOpen} />} />
+        <Route path="/brand" element={<Brand />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/franchise" element={<Franchise />} />
+        <Route path="/inquiry" element={<Inquiry />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/findID" element={<FindID />} />
+        <Route path="/findPw" element={<FindPw />} />
+      </Routes>
+
+      <Footer />
+    </>
+  );
+}
+
+export default function App() {
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<div className="py-20 text-center">홈 페이지 (준비 중)</div>} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<div className="py-20 text-center">회원가입 페이지 준비 중</div>} />
-          </Routes>
-        </main>
-      </div>
+      <ScrollTop />
+      <AppContent />
     </Router>
   )
 }
-
-export default App
