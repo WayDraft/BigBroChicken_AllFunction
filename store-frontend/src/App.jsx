@@ -16,10 +16,13 @@ import Login from './auth/Login'
 import Signup from './auth/Signup'
 import FindID from './auth/FindID'
 import FindPw from './auth/FindPw'
+import Admin from './admin/Admin'
 
 function AppContent() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+
+  const isAdmin = location.pathname.startsWith('/admin')
 
   useEffect(() => {
     setIsOpen(false);
@@ -29,7 +32,8 @@ function AppContent() {
     <>
       <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       <Slide isOpen={isOpen} setIsOpen={setIsOpen} />
-      <QuickMenu />
+
+      {!isAdmin && <QuickMenu />}
 
       <Routes>
         <Route path="/" element={<Main isOpen={isOpen} setIsOpen={setIsOpen} />} />
@@ -42,6 +46,8 @@ function AppContent() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/findID" element={<FindID />} />
         <Route path="/findPw" element={<FindPw />} />
+
+        <Route path="/admin" element={<Admin />} />
       </Routes>
 
       <Footer />
