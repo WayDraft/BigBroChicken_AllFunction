@@ -7,7 +7,7 @@ export default function ProductManage() {
   const totalCount = products.length
 
   return (
-    <div className="flex flex-col w-full px-10 py-20 gap-20">
+    <div className="flex flex-col w-full px-10 py-20 gap-10">
       <div className="flex flex-col border-[2.5px] border-burgundy">
         {[
           {title: '판매상품', num: 0},
