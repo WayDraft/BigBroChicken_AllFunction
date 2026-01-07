@@ -3,12 +3,12 @@ import { FaAngleRight } from 'react-icons/fa6'
 export default function Dashboard() {
   return (
     <div className="flex flex-col w-full py-20 px-[110px] gap-10">
-      <div className="flex flex-col w-full border border-black">
-        <div className="border-b border-black text-left px-5 py-3">
+      <div className="flex flex-col w-full border-[2.5px] border-burgundy">
+        <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 text-burgundy font-bold">
           <span>판매관리</span>
         </div>
           
-        <div className="flex flex-row items-center justify-center gap-10 py-5 px-10  text-burgundy">
+        <div className="flex flex-row items-center justify-center gap-10 py-5 px-10 text-burgundy">
           {[
             {title: "신규주문", num: 0},
             {title: "배송준비", num: 0},
@@ -16,7 +16,7 @@ export default function Dashboard() {
             {title: "배송완료", num: 0}
           ].map((order, i) => (
             <>
-              <div className="flex flex-col justify-center items-center w-[140px] aspect-square rounded-full border border-burgundy">
+              <div className="flex flex-col justify-center items-center w-[140px] aspect-square rounded-full border-[2.5px] border-burgundy">
                 <span>{order.title}</span>
                 <span className="text-2xl font-bold">{order.num}건</span>
               </div>
@@ -26,8 +26,8 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="flex flex-col w-full border border-burgundy">
-        <div className="border-b border-burgundy text-left px-5 py-3">
+      <div className="flex flex-col w-full border-[2.5px] border-burgundy">
+        <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 text-burgundy font-bold">
           <span>정산</span>
         </div>
 
@@ -51,8 +51,8 @@ export default function Dashboard() {
       </div>
 
       <div className="flex flex-row w-full gap-8">
-        <div className="flex flex-col w-full border border-burgundy text-burgundy">
-          <div className="border-b border-burgundy text-left px-5 py-3">
+        <div className="flex flex-col w-full border-[2.5px] border-burgundy text-burgundy">
+          <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 font-bold">
             <span>취소 / 반품 / 교환</span>
           </div>
 
@@ -76,9 +76,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="flex flex-col w-full border border-burgundy text-burgundy">
-          <div className="border-b border-burgundy text-left px-5 py-3">
-            <span>취소 / 반품 / 교환</span>
+        <div className="flex flex-col w-full border-[2.5px] border-burgundy text-burgundy">
+          <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 font-bold">
+            <span>상품 관리</span>
           </div>
 
           <div className="flex flex-col h-full justify-evenly">
