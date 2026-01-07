@@ -12,7 +12,7 @@ class PaymentCompleteView(APIView):
         
         # 1. 포트원 API를 통해 결제 정보 조회 (V2)
         # 실제 운영시에는 PortOne API Secret을 사용하여 Authorization 헤더를 넣어야 함
-        portone_api_url = f"https://api.portone.io/payments/{payment_id}"
+        portone_api_url = f"8u2Ms8nD0vtXwDQ4C2QGo7M48Reldh9olY8rLuGZx7r1TXV4WbVv7LBJItHmcqnsjyrdjhfe6c9kMnS4Q2FQ==/v2/payments/{payment_id}"
         headers = {
             "Authorization": "PortOne YOUR_PORTONE_API_SECRET" # 포트원 콘솔에서 발급
         }

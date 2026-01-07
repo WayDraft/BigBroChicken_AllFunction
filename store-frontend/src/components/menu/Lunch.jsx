@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useProducts } from '../../hooks/useProducts'; // 커스텀 훅 임포트
+import { Link } from 'react-router-dom';
 
 export default function Lunch() {
   // 훅을 사용하여 '도시락' 카테고리 상품 데이터 가져오기
@@ -24,20 +25,18 @@ export default function Lunch() {
         <div className="w-full lg:px-[200px] grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16">
           
           {/* 하드코딩된 배열 대신 백엔드에서 가져온 products 배열을 사용 */}
-          {products.map((item, index) => (
-            <div 
-              key={item.id} // key는 고유 ID를 사용
-              className="relative flex justify-center items-center w-[130px] lg:w-[200px] aspect-square rounded-full"
-            >
-              {/* Django 모델에서 가져온 image_url 사용 */}
-              <img src={item.imageUrl || "/img/default.png"} className="absolute inset-0 w-full h-full object-cover" /> 
-              
-              {/* 이미지의 기타 요소는 제거하거나 필요에 따라 조정 */}
-
-              {/* Django 모델에서 가져온 name 사용 */}
-              <p className="relative z-10 text-lg lg:text-xl text-white font-bold">{item.name}</p>
-            </div>
-          ))}
+          {products.map((item) => (
+            <Link 
+                to={`/product/${item.id}`} // 클릭 시 상세 페이지로 이동
+                key={item.id} 
+                className="group relative flex flex-col items-center">
+                <div className="w-[130px] lg:w-[200px] aspect-square rounded-full overflow-hidden shadow-md group-hover:scale-105 transition-transform">
+                <img src={item.image_url || "/img/default.png"} className="w-full h-full object-cover" />
+                </div>
+                <p className="mt-4 text-lg lg:text-xl font-bold text-gray-800">{item.name}</p>
+                <p className="text-gray-600">{item.price.toLocaleString()}원</p>
+            </Link>
+            ))}
         </div>
       </div>
     </div>
