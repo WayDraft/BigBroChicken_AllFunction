@@ -22,7 +22,7 @@ export default function OrderManage() {
   ))
 
   return (
-    <div className="flex flex-col w-full px-10 py-20">
+    <div className="flex flex-col w-full">
       <div className="flex flex-col w-full border-burgundy">
         {/* 검색 상세 설정 (상단) */}
         <div className="flex flex-col w-full p-8 bg-burgundy text-white gap-8">

@@ -7,8 +7,8 @@ export default function ProductManage() {
   const totalCount = products.length
 
   return (
-    <div className="flex flex-col w-full px-10 py-20 gap-10">
-      <div className="flex flex-col border-[2.5px] border-burgundy">
+    <div className="flex flex-col w-full gap-10">
+      <div className="flex flex-col border-[2.5px] border-burgundy bg-white">
         {[
           {title: '판매상품', num: 0},
           {title: '품절상품', num: 0},
@@ -68,7 +68,7 @@ export default function ProductManage() {
         </div>
 
         {/* 상품 리스트 (하단) */}
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full bg-white">
           {/* 헤더 */}
           <div className="grid grid-cols-10 text-burgundy font-bold border-b border-burgundy py-3">
             <span className="col-span-1">번호</span>

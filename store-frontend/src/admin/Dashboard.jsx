@@ -2,9 +2,9 @@ import { FaAngleRight } from 'react-icons/fa6'
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-col w-full py-20 px-[110px] gap-10">
-      <div className="flex flex-col w-full border-[2.5px] border-burgundy">
-        <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 text-burgundy font-bold">
+    <div className="flex flex-col w-full gap-10">
+      <div className="flex flex-col w-full border-[2.5px] border-burgundy bg-white">
+        <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 text-white font-bold bg-burgundy">
           <span>판매관리</span>
         </div>
           
@@ -26,8 +26,8 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="flex flex-col w-full border-[2.5px] border-burgundy">
-        <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 text-burgundy font-bold">
+      <div className="flex flex-col w-full border-[2.5px] border-burgundy bg-white">
+        <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 text-white font-bold bg-burgundy">
           <span>정산</span>
         </div>
 
@@ -51,8 +51,8 @@ export default function Dashboard() {
       </div>
 
       <div className="flex flex-row w-full gap-8">
-        <div className="flex flex-col w-full border-[2.5px] border-burgundy text-burgundy">
-          <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 font-bold">
+        <div className="flex flex-col w-full border-[2.5px] border-burgundy text-burgundy bg-white">
+          <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 font-bold text-white bg-burgundy">
             <span>취소 / 반품 / 교환</span>
           </div>
 
@@ -76,8 +76,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="flex flex-col w-full border-[2.5px] border-burgundy text-burgundy">
-          <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 font-bold">
+        <div className="flex flex-col w-full border-[2.5px] border-burgundy text-burgundy bg-white">
+          <div className="border-b-[2.5px] border-burgundy text-left px-5 py-3 font-bold text-white bg-burgundy">
             <span>상품 관리</span>
           </div>
 

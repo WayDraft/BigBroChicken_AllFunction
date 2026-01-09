@@ -13,6 +13,8 @@ export default {
         transparent : 'transparent',
         current : 'currentColor',
         'burgundy' : '#880000',
+        'lightBurgundy' : '#a02727ff',
+        'darkBurgundy' : '#570707ff',
       },
     },
   },
