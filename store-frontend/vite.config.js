@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8000',
+        // backend currently running on port 8001 (we started Django on 8001 to avoid port-in-use)
+        target: 'http://127.0.0.1:8001',
         changeOrigin: true,
         secure: false,
         rewrite: path => path.replace(/^\/api/, '/api')
