@@ -18,6 +18,9 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PAID', verbose_name="주문상태")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="주문일시")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="수정일시")
+    address = models.CharField(max_length=500, verbose_name="배송지 주소", null=True)
+    phone = models.CharField(max_length=20, verbose_name="연락처", null=True)
+    memo = models.TextField(verbose_name="배송 요청사항", blank=True)
 
     class Meta:
         verbose_name = "주문 관리"

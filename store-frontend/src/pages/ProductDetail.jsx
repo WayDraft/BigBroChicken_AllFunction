@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // navigate 추가
 import { useAuth } from '../context/AuthContext.jsx';
 import { handlePayment } from '../services/paymentService';
 import apiClient from '../services/apiClient';
 
 export default function ProductDetail() {
-  const { id } = useParams(); // URL에서 상품 ID 추출
+  const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
+  
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // --- 배송 정보 입력을 위한 상태 추가 ---
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
+  const [memo, setMemo] = useState('');
+
   useEffect(() => {
-    // 상품 상세 정보 가져오기
     apiClient.get(`/products/${id}/`)
       .then(res => {
         setProduct(res.data);
@@ -23,30 +29,36 @@ export default function ProductDetail() {
   const onBuyNow = () => {
     if (!user) {
       alert("로그인이 필요한 서비스입니다.");
-      window.location.href = "/login";
+      navigate("/login");
       return;
     }
 
-    // 결제 데이터 준비
+    if (!address || !phone) {
+      alert("배송지와 연락처를 정확히 입력해주세요.");
+      return;
+    }
+  
     const orderData = {
       name: product.name,
       price: product.price,
       username: user.username,
       email: user.email,
+      address, 
+      phone,
+      memo
     };
 
-    // paymentService의 결제 함수 호출
     handlePayment(orderData);
   };
 
-  if (loading) return <div className="py-20 text-center">로딩 중...</div>;
-  if (!product) return <div className="py-20 text-center">상품을 찾을 수 없습니다.</div>;
+  if (loading) return <div className="py-20 text-center text-gray-500">로딩 중...</div>;
+  if (!product) return <div className="py-20 text-center text-gray-500">상품을 찾을 수 없습니다.</div>;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 lg:py-16">
+    <div className="max-w-7xl mx-auto px-4 py-10 lg:py-16 font-['AritaBuri']">
       <div className="flex flex-col lg:flex-row gap-12">
         {/* 왼쪽: 상품 이미지 */}
-        <div className="w-full lg:w-1/2 aspect-square bg-gray-100 rounded-xl overflow-hidden">
+        <div className="w-full lg:w-1/2 aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-sm">
           <img 
             src={product.image_url || "/img/default.png"} 
             alt={product.name}
@@ -54,22 +66,54 @@ export default function ProductDetail() {
           />
         </div>
 
-        {/* 오른쪽: 상품 정보 및 버튼 */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-between">
-          <div>
-            <span className="text-green-600 font-bold text-sm">{product.category?.name}</span>
-            <h1 className="text-3xl font-bold mt-2 text-gray-900">{product.name}</h1>
-            <p className="text-2xl font-black mt-4 text-gray-900">
+        {/* 오른쪽: 상품 정보 및 배송지 입력 */}
+        <div className="w-full lg:w-1/2 flex flex-col">
+          <div className="mb-6">
+            <span className="text-green-700 font-bold text-sm bg-green-50 px-2 py-1 rounded">
+              {product.category?.name || "친환경 제품"}
+            </span>
+            <h1 className="text-3xl font-bold mt-4 text-gray-900">{product.name}</h1>
+            <p className="text-2xl font-black mt-4 text-gray-900 border-b border-gray-100 pb-6">
               {product.price.toLocaleString()}원
             </p>
-            <div className="border-t border-gray-200 mt-8 pt-8">
-              <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">
-                {product.description || "상세 설명이 없습니다."}
-              </p>
+          </div>
+
+          {/* 배송 정보 입력 섹션 (스마트스토어 스타일) */}
+          <div className="bg-gray-50 p-6 rounded-lg space-y-4 mb-8">
+            <h3 className="font-bold text-gray-800 border-b pb-2 mb-4">배송 정보 입력</h3>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">수령인 연락처</label>
+              <input 
+                type="text" 
+                placeholder="010-0000-0000"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full p-2 border rounded border-gray-300 focus:ring-1 focus:ring-green-600 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">배송지 주소</label>
+              <input 
+                type="text" 
+                placeholder="도로명 주소 또는 지번 주소"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="w-full p-2 border rounded border-gray-300 focus:ring-1 focus:ring-green-600 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">배송 요청사항 (선택)</label>
+              <input 
+                type="text" 
+                placeholder="문 앞에 놓아주세요"
+                value={memo}
+                onChange={(e) => setMemo(e.target.value)}
+                className="w-full p-2 border rounded border-gray-300 focus:ring-1 focus:ring-green-600 outline-none"
+              />
             </div>
           </div>
 
-          <div className="mt-10 flex gap-4">
+          <div className="mt-auto flex gap-4">
             <button className="flex-1 h-14 border border-gray-300 rounded-md font-bold text-gray-700 hover:bg-gray-50 transition-colors">
               장바구니
             </button>
