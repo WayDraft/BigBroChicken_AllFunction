@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        pretendard: ["Pretendard", "sans-serif"],
+        Gmarket: ['GmarketSansMedium', 'sans-serif'],
       },
       colors: {
         transparent : 'transparent',
@@ -15,6 +15,15 @@ export default {
         'burgundy' : '#880000',
         'lightBurgundy' : '#a02727ff',
         'darkBurgundy' : '#570707ff',
+      },
+      keyframes: {
+        belt: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(var(--move-x))'},
+        },
+      },
+      animation: {
+        belt: 'belt 20s linear infinite',
       },
     },
   },

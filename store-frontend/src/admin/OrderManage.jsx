@@ -118,7 +118,7 @@ export default function OrderManage() {
         </div>
 
         {/* 상품 리스트 (하단) */}
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full bg-white">
           {/* 헤더 */}
           <div className="grid grid-cols-10 py-3 text-burgundy font-bold border border-burgundy">
             <span className="col-span-1">번호</span>

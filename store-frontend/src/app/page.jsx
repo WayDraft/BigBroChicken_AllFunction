@@ -1,32 +1,32 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom'
 
-export default function Main({isOpen, setIsOpen}) {
+export default function Main() {
   const exampleBox = [
-    'bg-red-400',
-    'bg-orange-400',
-    'bg-yellow-400',
-    'bg-green-400',
-    'bg-blue-400',
-    'bg-purple-400',
+    { img: '/img/menu/간장구이.png', name: '간장구이' },
+    { img: '/img/menu/소금구이.png', name: '소금구이' },
+    { img: '/img/menu/양념구이.png', name: '양념구이' },
+    { img: '/img/menu/닭목살.png', name: '닭목살' },
+    { img: '/img/menu/닭발.png', name: '닭발' },
   ]
-  const [visibleCount, setVisibleCount] = useState(window.innerWidth >= 1024 ? 4 : 2);
-  const delay = 5000;
-  const [index, setIndex] = useState(visibleCount);
-  const [isTransitioning, setIsTransitioning] = useState(true);
-  const timeoutRef = useRef(null);
-  const wrapperRef = useRef(null);
-    const [itemWidth, setItemWidth] = useState(300); // item width based on wrapper's clientWidth
-  const gap = 20; // px gap between items
-    // parent will provide side padding (px-36). We calculate using wrapper clientWidth.
+  const [visibleCount, setVisibleCount] = useState(window.innerWidth >= 1024 ? 4 : 2);   // 한 화면에 보여질 슬라이딩 박스 개수. 데스크탑: 4개, 모바일: 2개
+  const delay = 5000;   // 슬라이딩 딜레이 시간
+  const [index, setIndex] = useState(visibleCount);   // 현재 슬라이드 박스 위치
+  const [isTransitioning, setIsTransitioning] = useState(true);   // 애니메이션 제어. true: 부드러움, false: 순간이동
+  const timeoutRef = useRef(null);   // 슬라이드 타이머 관리
+  const wrapperRef = useRef(null);   // 슬라이드 컨테이너 너비 계산
+  const [itemWidth, setItemWidth] = useState(100);   // 슬라이드 박스 크기
+  const gap = 50;
+  const moveDistance = exampleBox.length * (itemWidth + gap)
 
   // 반응형 visibleCount 및 itemWidth 계산
   useEffect(() => {
     const handleResize = () => {
       const newVisible = window.innerWidth >= 1024 ? 4 : 2;
       setVisibleCount(newVisible);
+
       const containerWidth = wrapperRef.current?.clientWidth ?? window.innerWidth;
-        setItemWidth((containerWidth - gap * (newVisible - 1)) / newVisible);
+      setItemWidth((containerWidth - gap * (newVisible - 1)) / newVisible);
     };
 
     handleResize();
@@ -37,14 +37,13 @@ export default function Main({isOpen, setIsOpen}) {
   // visibleCount가 바뀌면 index와 itemWidth 재계산
   useEffect(() => {
     const containerWidth = wrapperRef.current?.clientWidth ?? window.innerWidth;
-      setItemWidth((containerWidth - gap * (visibleCount - 1)) / visibleCount);
+    setItemWidth((containerWidth - gap * (visibleCount - 1)) / visibleCount);
     setIndex(visibleCount);
   }, [visibleCount]);
 
+  // 무한 슬라이드 생성 (앞, 뒤 슬라이드는 무한 슬라이드 연출을 위한 가짜)
   const slides = [
-    ...exampleBox.slice(-visibleCount),
-    ...exampleBox,
-    ...exampleBox.slice(0, visibleCount),
+    ...exampleBox, ...exampleBox
   ];
 
   function resetTimeout() {
@@ -52,7 +51,7 @@ export default function Main({isOpen, setIsOpen}) {
       clearTimeout(timeoutRef.current);
     }
   }
-
+ 
   useEffect(() => {
     resetTimeout();
     timeoutRef.current = window.setTimeout(() => {
@@ -84,7 +83,7 @@ export default function Main({isOpen, setIsOpen}) {
 
   return (
     <>
-    <main className="bg-gray-100 w-full flex flex-col">
+    <main className="bg-white w-full flex flex-col">
       <img src="/img/main.png" className="w-full" />
 
       <div className="w-full h-128 flex flex-col items-center justify-center py-52">
@@ -103,8 +102,8 @@ export default function Main({isOpen, setIsOpen}) {
         </Link>
       </div>
 
-      <div className="w-full flex flex-col items-center justify-center bg-red-500 py-[40px] px-36">
-        <p className='pb-10'>형님 닭구이</p>
+      <div className="w-full flex flex-col items-center justify-center bg-burgundy py-[150px] px-36">
+        <p className='text-4xl text-white font-bold pb-20'>형님 닭구이 대표 메뉴</p>
 
         {/* 슬라이드 영역 */}
         <div
@@ -115,30 +114,42 @@ export default function Main({isOpen, setIsOpen}) {
             maxWidth: '100vw',
           }}
         >
-          <div
-            className={`flex ${isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''}`}
-            style={{
-              transform: `translateX(-${index * (itemWidth + gap)}px)`,
-              width: `${slides.length * (itemWidth + gap) - gap}px`,
-            }}
-            onTransitionEnd={() => {
-              if (!isTransitioning) setIsTransitioning(true);
-            }}
-          >
-            {slides.map((color, i) => (
-              <div
-                key={i}
-                className={`flex items-center justify-center text-white font-bold text-2xl ${color}`}
-                style={{
-                  width: `${itemWidth}px`,
-                  height: `${itemWidth}px`,
-                  marginRight: i !== slides.length - 1 ? `${gap}px` : 0,
-                  flex: '0 0 auto',
-                }}
-              >
-                Box {((i - visibleCount + exampleBox.length) % exampleBox.length) + 1}
-              </div>
-            ))}
+          <div className="overflow-hidden w-full">
+            <div
+              className="flex animate-belt"
+              style={{
+                width: `${slides.length * (itemWidth + gap)}px`,
+                '--move-x': `-${moveDistance}px`
+              }}
+            >
+              {slides.map((img, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: `${itemWidth}px`,
+                    marginRight: `${gap}px`,
+                    flex: '0 0 auto',
+                  }}
+                  className="flex flex-col overflow-hidden rounded-xl bg-white p-10"
+                >
+                  <div
+                    style={{
+                      width: '100%',
+                      height: `${itemWidth}px`,
+                    }}
+                  >
+                    <img
+                      src={img.img}
+                      className="w-full h-full object-center"
+                    />
+                  </div>
+
+                  <div className="py-2 text-center">
+                    <span>{img.name}</span>
+                  </div>
+                </div>
+              ))}     
+            </div>
           </div>
         </div>
 
@@ -161,7 +172,6 @@ export default function Main({isOpen, setIsOpen}) {
 
       <div className="w-full h-128 flex flex-col items-center justify-center py-52">
         <p className="text-3xl font-bold text-red-800 pb-5">가맹문의</p>
-        <p className="text-lg pb-6">가맹문의 모집 멘트 삽입란</p>
         <Link
           to="/inquiry"
           className="border-2 border-black p-3 flex justify-between w-40 rounded-3xl"

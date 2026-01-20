@@ -26,6 +26,7 @@ export default function Footer() {
         <p>대표 : 배성룡</p>
       </div>
 
+      {/* 가맹정보 */}
       <div className="ml-0">
         {infoList.map((item, index) => (
           <div key={index} className="flex mb-2">

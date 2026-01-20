@@ -1,3 +1,5 @@
+// 헤더 (컴퓨터)
+
 import { Link } from 'react-router-dom'
 
 export default function Header({isOpen, setIsOpen}) {
@@ -16,10 +18,10 @@ export default function Header({isOpen, setIsOpen}) {
           </div>
 
           <div className="hidden lg:flex space-x-8 text-black font-bold">
-            <Link to="/brand" className="hover:text-red-700">브랜드소개</Link>
-            <Link to="/menu" className="hover:text-red-700">메뉴소개</Link>
-            <Link to="/franchise" className="hover:text-red-700">가맹소개</Link>
-            <Link to="/inquiry" className="hover:text-red-700">가맹문의</Link>
+            <Link to="/brand" className="hover:text-lightBurgundy">브랜드소개</Link>
+            <Link to="/menu" className="hover:text-lightBurgundy">메뉴소개</Link>
+            <Link to="/franchise" className="hover:text-lightBurgundy">가맹소개</Link>
+            <Link to="/inquiry" className="hover:text-lightBurgundy">가맹문의</Link>
           </div>
 
           {/* 햄버거 버튼 */}
@@ -27,9 +29,9 @@ export default function Header({isOpen, setIsOpen}) {
             className="lg:hidden flex flex-col items-end justify-center h-full space-y-1 bg-transparent border-none p-0"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <div className="w-8 h-1 bg-gray-600"></div>
-            <div className="w-8 h-1 bg-gray-600"></div>
-            <div className="w-8 h-1 bg-gray-600"></div>
+            <div className="w-8 h-1 bg-burgundy"></div>
+            <div className="w-8 h-1 bg-burgundy"></div>
+            <div className="w-8 h-1 bg-burgundy"></div>
           </button>
         </div>
       </div>
