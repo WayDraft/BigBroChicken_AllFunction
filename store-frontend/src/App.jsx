@@ -17,6 +17,7 @@ import Signup from './auth/Signup'
 import FindID from './auth/FindID'
 import FindPw from './auth/FindPw'
 import Admin from './admin/Admin'
+import Cart from './pages/Cart'
 
 function AppContent() {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,6 +47,7 @@ function AppContent() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/findID" element={<FindID />} />
         <Route path="/findPw" element={<FindPw />} />
+        <Route path="/cart" element={<Cart />} />
 
         <Route path="/admin" element={<Admin />} />
       </Routes>
