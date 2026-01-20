@@ -39,7 +39,7 @@ export default function Inquiry() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const modal = (
-    <div className="relative w-full">
+    <div className="relative">
       <button
         className="w-[120px] h-[40px] bg-gray-800 text-white flex justify-center items-center"
         onClick={() => setModalOpen(true)}
@@ -111,15 +111,15 @@ export default function Inquiry() {
             <textarea className="w-full h-[150px] border border-black p-2" placeholder="문의내용을 입력해주세요." />
           </div>
 
-          <div className="flex flex-row items-center justify-between p-3 border border-black">
-            <div className="flex flex-row space-x-3 items-center">
+          <div className="flex flex-row items-center justify-between w-full p-3 border border-black">
+            <div className="flex flex-row items-center">
               <input
                 type="checkbox"
-                className="w-5 h-5 rounded-full border-2 border-gray-400 checked:bg-blue-600"
+                className="w-5 h-5 rounded-full border-2 border-gray-400 checked:bg-burgundy mr-3"
               />
               <p>개인정보취급방침을 읽었으며 이에 동의합니다.</p>
-              {modal}
             </div>
+            {modal}
           </div>
 
           <div className="w-full flex justify-center items-center py-10">

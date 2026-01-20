@@ -26,7 +26,7 @@ export default function Brand() {
           </div>
         </div>
 
-        <div className="w-full h-[550px] flex flex-col sm:flex-row items-center sm:justify-between lg:justify-center">
+        <div className="w-full h-[550px] flex flex-col sm:flex-row items-center sm:justify-between lg:justify-center my-[200px]">
           <div className="flex flex-col text-left pl-5 lg:pr-[300px]">
             <span className="text-4xl pt-10 sm:pt-0 lg:text-6xl font-bold pb-10">
               단지 곁에서<br />
@@ -61,7 +61,7 @@ export default function Brand() {
           </div>
         </div>
 
-        <div className="w-full flex flex-col lg:flex-row lg:justify-between lg:pr-[120px]">
+        <div className="w-full flex flex-col lg:flex-row lg:justify-between lg:pr-[120px] mb-[200px]">
           <img src="/img/store.jpg" className="w-full h-[300px] lg:w-[800px] lg:h-[400px]" />
           <div className="lg:text-right py-10 sm:py-20 text-sm sm:text-xl">
             <p className="pb-4">
