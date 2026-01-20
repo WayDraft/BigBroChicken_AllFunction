@@ -1,17 +1,26 @@
-export default function MenuCard({title, description, img}) {
+import { Link } from 'react-router-dom'
+import { FaShoppingCart } from "react-icons/fa"
+
+export default function MenuCard({id, title, description, price, img}) {
   return (
-    <>
-    <div className="grid grid-row-4 gap-6 py-30">
-      <div className="w-[400px] h-[500px] flex flex-col rounded-3xl shadow-2xl justify-center items-center px-8">
-        <img 
-          src={img}
-          className="w-[230px] aspect-square cursor-pointer hover:scale-105 transition-transform duration-300"
-        />
-        <div className="bg-gray-300 w-full h-[1px] mt-12 mb-3" />
-        <span className="text-2xl my-2 font-bold my-3">{title}</span>
-        <span className="text-md">{description}</span>
+    <Link to={`/menu/${id}`}>
+      <div className="cursor-pointer grid gap-6 py-30">
+        <div className="w-[400px] h-[500px] flex flex-col justify-center items-center px-8 text-left">
+          <img 
+            src={img}
+            className="w-[230px] aspect-square cursor-pointer hover:scale-105 transition-transform duration-300"
+          />
+          <div className="bg-gray-300 w-full h-[1px] mt-12 mb-3" />
+          <div className="flex flex-col items-start w-full">
+            <span className="text-2xl my-2 font-bold my-3">{title}</span>
+            <div className="flex flex-row justify-between items-center w-full">
+              <span className="text-lg">{price} 원</span>
+              <FaShoppingCart className="text-2xl" />
+            </div>
+          </div>
+          
+        </div>
       </div>
-    </div>
-    </>    
+    </Link>    
   )
 }
