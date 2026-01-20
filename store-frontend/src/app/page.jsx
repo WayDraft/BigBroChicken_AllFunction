@@ -11,13 +11,12 @@ export default function Main() {
   ]
   const [visibleCount, setVisibleCount] = useState(window.innerWidth >= 1024 ? 4 : 2);   // 한 화면에 보여질 슬라이딩 박스 개수. 데스크탑: 4개, 모바일: 2개
   const delay = 5000;   // 슬라이딩 딜레이 시간
-  const [index, setIndex] = useState(visibleCount);   // 현재 슬라이드 박스 위치
+  const [index, setIndex] = useState(exampleBox.length);   // 현재 슬라이드 박스 위치
   const [isTransitioning, setIsTransitioning] = useState(true);   // 애니메이션 제어. true: 부드러움, false: 순간이동
   const timeoutRef = useRef(null);   // 슬라이드 타이머 관리
   const wrapperRef = useRef(null);   // 슬라이드 컨테이너 너비 계산
   const [itemWidth, setItemWidth] = useState(100);   // 슬라이드 박스 크기
   const gap = 50;
-  const moveDistance = exampleBox.length * (itemWidth + gap)
 
   // 반응형 visibleCount 및 itemWidth 계산
   useEffect(() => {
@@ -43,7 +42,7 @@ export default function Main() {
 
   // 무한 슬라이드 생성 (앞, 뒤 슬라이드는 무한 슬라이드 연출을 위한 가짜)
   const slides = [
-    ...exampleBox, ...exampleBox
+    ...exampleBox, ...exampleBox, ...exampleBox
   ];
 
   function resetTimeout() {
@@ -61,25 +60,32 @@ export default function Main() {
     return () => resetTimeout();
   }, [index, visibleCount]);
 
+  useEffect(() => {
+    if (!isTransitioning) {
+      requestAnimationFrame(() => {
+        setIsTransitioning(true)
+      })
+    }
+  }, [isTransitioning])
+
+  {/*
   // 무한 슬라이드 효과: 마지막(오른쪽 끝)에서 바로 처음(왼쪽 끝)으로 점프
   useEffect(() => {
-    if (index === exampleBox.length + visibleCount) {
+    if (index >= exampleBox.length * 2) {
       setTimeout(() => {
         setIsTransitioning(false);
         setIndex(visibleCount);
       }, 700);
-    } else if (index === 0) {
+    } 
+    
+    if (index <= exampleBox.length - visibleCount) {
       setTimeout(() => {
         setIsTransitioning(false);
         setIndex(exampleBox.length);
       }, 700);
-    } else {
-      setIsTransitioning(true);
     }
-  }, [index, exampleBox.length, visibleCount]);
-
-  const nextSlide = () => setIndex((prev) => prev + 1);
-  const prevSlide = () => setIndex((prev) => prev - 1);
+  }, [index]);
+  */}
 
   return (
     <>
@@ -116,58 +122,51 @@ export default function Main() {
         >
           <div className="overflow-hidden w-full">
             <div
-              className="flex animate-belt"
+              className={`flex ${isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''}`}
               style={{
+                transform: `translateX(-${index * (itemWidth + gap)}px)`,
                 width: `${slides.length * (itemWidth + gap)}px`,
-                '--move-x': `-${moveDistance}px`
+              }}
+              onTransitionEnd={() => {
+                if (index >= exampleBox.length * 2) {
+                  setIsTransitioning(false)
+                  setIndex(exampleBox.length)
+                }
+
+                if (index <= exampleBox.length - visibleCount) {
+                  setIsTransitioning(false)
+                  setIndex(exampleBox.length)
+                }
               }}
             >
               {slides.map((img, i) => (
                 <div
+                  className="rounded-xl bg-white py-5 px-5"
                   key={i}
                   style={{
                     width: `${itemWidth}px`,
                     marginRight: `${gap}px`,
                     flex: '0 0 auto',
                   }}
-                  className="flex flex-col overflow-hidden rounded-xl bg-white p-10"
                 >
                   <div
-                    style={{
-                      width: '100%',
-                      height: `${itemWidth}px`,
-                    }}
-                  >
+                    className="w-full h-4/5 aspect-square flex items-center justify-center">
                     <img
                       src={img.img}
-                      className="w-full h-full object-center"
+                      className="max-w-full max-h-full object-center"
                     />
                   </div>
 
+                  <div className="border-[1px] border-gray-200 my-5" />
+
                   <div className="py-2 text-center">
-                    <span>{img.name}</span>
+                    <span className="text-xl">{img.name}</span>
                   </div>
                 </div>
               ))}     
             </div>
           </div>
-        </div>
-
-        {/* 좌우 화살표 버튼 - absolute로 배치 */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow flex items-center justify-center"
-        >
-          ‹
-        </button>
-
-        <button
-          onClick={nextSlide}
-          className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow flex items-center justify-center"
-        >
-          ›
-        </button>
-        
+        </div>        
       </div>
 
       <div className="w-full h-128 flex flex-col items-center justify-center py-52">
