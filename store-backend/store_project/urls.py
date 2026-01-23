@@ -25,18 +25,21 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,  # Access/Refresh 토큰 발급
     TokenRefreshView,     # Access 토큰 재발급
 )
 
 urlpatterns = [
+    # redirect root URL to /api/ so visiting / doesn't return 404
+    path('', RedirectView.as_view(url='/api/')),
     path('admin/', admin.site.urls),
-    
+
     # /api/products/ 등 상품 관련 URL
-    path('admin/', admin.site.urls),
     path('api/', include('product.urls')), 
     path('api/', include('user.urls')),  # 사용자 관련 URL 추가 : user앱 URL 추가
+    path('api/order/', include('order.urls')),  # 주문 관련 URL 추가 : order앱 URL 추가
 
     # --- JWT 인증 API 추가 ---
     # POST /api/token/ : 로그인 (username, password로 토큰 획득)

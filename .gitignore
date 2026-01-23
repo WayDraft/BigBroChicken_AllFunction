@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+*.log
+db.sqlite3
+
+# Virtualenv / site-packages
+venv/
+env/
+payment/lib/
+store-backend/payment/lib/
+
+# Frontend logs
+vite.log
+
+# OS
+.DS_Store
+Thumbs.db

@@ -43,11 +43,12 @@ INSTALLED_APPS = [
     'product', # 생성한 product 앱
     'rest_framework_simplejwt', # JWT 인증용
     'user', # 생성한 user 앱 추가
+    'order', # 주문(order) 앱
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',  # CORS 미들웨어 추가 (이 설정 추가할때 맨 위에 위치해야 함)
-    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',      
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -66,9 +67,9 @@ CORS_ALLOWED_ORIGINS = [
 # Django REST Framework (DRF) 설정
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 기본 인증 클래스로 JWT 사용을 설정합니다.
+        # 기본 인증 클래스로 JWT 사용을 설정
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 나중에 SessionAuthentication 등도 추가될 수 있습니다.
+        # 나중에 SessionAuthentication 등도 추가될 수 있음
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { AuthProvider } from './context/AuthContext'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import './App.css'
 import ScrollTop from './components/ScrollTop'
@@ -8,7 +9,7 @@ import QuickMenu from './components/QuickMenu'
 import Slide from './components/Slide'
 import Main from './app/page'
 import Brand from './pages/Brand'
-import Menu from './pages/Menu'
+import Menu from './pages/Menu' 
 import Franchise from './pages/Franchise'
 import Inquiry from './pages/Inquiry'
 import Store from './pages/Store'
@@ -19,6 +20,9 @@ import FindPw from './auth/FindPw'
 import Admin from './admin/Admin'
 import Cart from './pages/Cart'
 import MenuDetail from './pages/MenuDetail'
+
+import LoginPage from './pages/LoginPage'
+import ProductDetail from './pages/ProductDetail';
 
 function AppContent() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,27 +36,33 @@ function AppContent() {
 
   return (
     <>
+    <AuthProvider>
       <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       <Slide isOpen={isOpen} setIsOpen={setIsOpen} />
 
       {!isAdmin && <QuickMenu />}
+      
+        <Routes>
+          <Route path="/" element={<Main isOpen={isOpen} setIsOpen={setIsOpen} />} />
+          <Route path="/brand" element={<Brand />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/franchise" element={<Franchise />} />
+          <Route path="/inquiry" element={<Inquiry />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/findID" element={<FindID />} />
+          <Route path="/findPw" element={<FindPw />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/menu/:id" element={<MenuDetail />} />
 
-      <Routes>
-        <Route path="/" element={<Main isOpen={isOpen} setIsOpen={setIsOpen} />} />
-        <Route path="/brand" element={<Brand />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/franchise" element={<Franchise />} />
-        <Route path="/inquiry" element={<Inquiry />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/findID" element={<FindID />} />
-        <Route path="/findPw" element={<FindPw />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/menu/:id" element={<MenuDetail />} />
+          <Route path="/admin" element={<Admin />} />
 
-        <Route path="/admin" element={<Admin />} />
-      </Routes>
+
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/loginTest" element={<LoginPage />} />
+        </Routes>
+    </AuthProvider>
 
       <Footer />
     </>
