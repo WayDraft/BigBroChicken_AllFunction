@@ -14,6 +14,7 @@ export default function Menu() {
             title={item.title}
             description={item.description}
             price={item.price}
+            cost={item.nonMember}
             img={item.img}
           />
         ))}

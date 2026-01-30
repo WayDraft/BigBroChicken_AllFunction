@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AUthContext'
 import { FaShoppingCart } from "react-icons/fa"
 
-export default function MenuCard({id, title, description, price, img}) {
+export default function MenuCard({id, title, description, price, cost, img}) {
+  const { user } = useAuth()
   return (
     <Link to={`/menu/${id}`}>
       <div className="cursor-pointer grid gap-6 py-30">
@@ -14,7 +16,10 @@ export default function MenuCard({id, title, description, price, img}) {
           <div className="flex flex-col items-start w-full">
             <span className="text-2xl my-2 font-bold my-3">{title}</span>
             <div className="flex flex-row justify-between items-center w-full">
-              <span className="text-lg">{price} 원</span>
+              {user ?
+                (<span className="text-lg">{price} 원</span>) :
+                (<span className="text-lg">{cost} 원</span>)
+              }
               <FaShoppingCart className="text-2xl" />
             </div>
           </div>
