@@ -6,7 +6,7 @@ class OrderAdmin(admin.ModelAdmin):
     # 1. 목록에 보여줄 컬럼들 (스마트스토어 주문 목록과 유사하게)
     list_display = ('id', 'status', 'order_name', 'amount', 'user', 'created_at', 'payment_id')
     
-    # 2. 클릭해서 상세 수정으로 들어갈 컬럼
+    # 2. 클릭해서 상세 내역으로 들어갈 컬럼
     list_display_links = ('id', 'order_name')
     
     # 3. 우측 필터 바 (상태별, 날짜별로 모아보기)

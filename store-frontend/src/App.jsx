@@ -21,7 +21,6 @@ import Admin from './admin/Admin'
 import Cart from './pages/Cart'
 import MenuDetail from './pages/MenuDetail'
 
-import LoginPage from './pages/LoginPage'
 import ProductDetail from './pages/ProductDetail';
 
 function AppContent() {
@@ -60,7 +59,6 @@ function AppContent() {
 
 
           <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/loginTest" element={<LoginPage />} />
         </Routes>
     </AuthProvider>
 
