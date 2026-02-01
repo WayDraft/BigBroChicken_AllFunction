@@ -19,6 +19,7 @@ export default function Header({isOpen, setIsOpen}) {
           {user ? (
             <>
               <span>{user.username} 님</span>
+              <Link to="/mypage" className="hover:text-red-700">마이페이지</Link>
               <button onClick={handleLogout} className="hover:text-red-700">로그아웃</button>
               <Link to="/cart">
                 <FaShoppingCart className="text-2xl hover:text-red-700" />

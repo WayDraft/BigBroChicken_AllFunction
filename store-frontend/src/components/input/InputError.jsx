@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import BaseInput from './BaseInput'
 
-export default function InputError({ value, setValue, ...props }) {
+export default function InputError({ value, setValue, className='' , ...props }) {
   const [clicked, setClicked] = useState(false)
 
   const handleBlur = () => {
@@ -8,12 +9,12 @@ export default function InputError({ value, setValue, ...props }) {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <BaseInput
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onBlur={handleBlur}
-        className={`${clicked && !value ? 'border-red-500 mb-0' : 'mb-8'}`}
+        className={`${clicked && !value ? 'border-red-500 mb-0' : ''} ${className}`}
         {...props}
       />
       {clicked && !value && (

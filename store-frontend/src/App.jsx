@@ -22,12 +22,14 @@ import Cart from './pages/Cart'
 import MenuDetail from './pages/MenuDetail'
 
 import ProductDetail from './pages/ProductDetail';
+import MyPage from './pages/MyPage';
 
 function AppContent() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   const isAdmin = location.pathname.startsWith('/admin')
+  const isMypage = location.pathname.startsWith('/mypage')
 
   useEffect(() => {
     setIsOpen(false);
@@ -39,7 +41,7 @@ function AppContent() {
       <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       <Slide isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      {!isAdmin && <QuickMenu />}
+      {!isAdmin && !isMypage && <QuickMenu />}
       
         <Routes>
           <Route path="/" element={<Main isOpen={isOpen} setIsOpen={setIsOpen} />} />
@@ -54,6 +56,7 @@ function AppContent() {
           <Route path="/findPw" element={<FindPw />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/menu/:id" element={<MenuDetail />} />
+          <Route path="/mypage" element={<MyPage />} />
 
           <Route path="/admin" element={<Admin />} />
 
