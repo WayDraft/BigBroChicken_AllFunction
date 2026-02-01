@@ -1,10 +1,24 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import DaumPostcode from 'react-daum-postcode'
+import Form from '../components/common/Form'
+import Input from '../components/input/OptionInput'
+import InputError from '../components/input/InputError'
 
 export default function Signup() {
+  const [id, setId] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPW, setConfirmPW] = useState('')
+  const [name, setName] = useState('')
+  const [address, setAddress] = useState('')
+  const [detailAddress, setDetailAddress] = useState('')
+  const [phone, setPhone] = useState('')
+
   const [openPostcode, setOpenPostcode] = useState(false)
   const [zipCode, setZipcode] = useState("")
   const [roadAddress, setRoadAddress] = useState("")
+
+  const navigate = useNavigate()
 
   const handleClick = () => {
     setOpenPostcode((prev) => !prev)
@@ -13,6 +27,7 @@ export default function Signup() {
   const handleSelectAddress = (data) => {
     setZipcode(data.zonecode)
     setRoadAddress(data.roadAddress)
+    setAddress(data.roadAddress)
     setOpenPostcode(false)
   }
 
@@ -22,26 +37,51 @@ export default function Signup() {
     privacy: false,
   })
 
+  const isPasswordSame = password === confirmPW
+
+  const canSave =
+    id && password && isPasswordSame && name && address && phone &&
+    agree.terms && agree.privacy
+
+  const handleSave = () => {
+    if (!canSave) {
+      alert('정보를 모두 입력하세요.')
+      return
+    }
+
+    alert('회원가입을 환영합니다.')
+    navigate('/login')
+  }
+
   return (
     <div className="flex items-center justify-center w-full">
       <div className="flex flex-col items-center justify-center w-1/2 py-20 gap-16">
         <span className="text-4xl font-bold">회원가입</span>
 
         <div className="flex flex-col gap-8 w-full text-left">
-          <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
-            <span className="w-1/5">아이디</span>
-            <input className="w-4/5 border border-black px-3 py-2" />
+          <Form label="아이디">
+            <InputError value={id} setValue={setId} />
+          </Form>
+
+          <div className="flex flex-col">
+            <Form label="비밀번호" className="pb-8">
+              <InputError value={password} setValue={setPassword} type="password" />
+            </Form>
+            
+            <Form label="비밀번호 확인">
+              <InputError value={confirmPW} setValue={setConfirmPW} type="password" />
+            </Form>
+
+            {!isPasswordSame && (
+              <div className="flex flex-col items-end pl-3">
+                <span className="w-4/5 text-red-600 text-sm">비밀번호가 일치하지 않습니다.</span>
+              </div>
+            )}
           </div>
 
-          <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
-            <span className="w-1/5">비밀번호</span>
-            <input className="w-4/5 border border-black px-3 py-2" type="password" />
-          </div>
-
-          <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
-            <span className="w-1/5">비밀번호 확인</span>
-            <input className="w-4/5 border border-black px-3 py-2" type="password" />
-          </div>
+          <Form label="이름">
+            <InputError value={name} setValue={setName} />
+          </Form>
 
           <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
             <span className="w-1/5">주소</span>
@@ -78,21 +118,27 @@ export default function Signup() {
                 )}
               </div>
 
-              <div className="flex items-center border border-black px-3 py-2 h-12">{roadAddress}</div>
-              <input className="border border-black px-3 py-2" placeholder="상세주소" />
+              <div
+                value={address} setValue={setAddress}
+                className="flex items-center border border-black px-3 py-2 h-12"
+              >
+                {roadAddress}
+              </div>
+              <Input value={detailAddress} setValue={setDetailAddress} placeholder="상세주소" />
             </div>
           </div>
 
-          <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
-            <span className="w-1/5">전화번호</span>
-            <div className="flex flex-col w-4/5 gap-2">
-              <input className="border border-black px-3 py-2" placeholder="전화번호" />
-              <div className="flex flex-row gap-2">
-                <div className="border border-black px-3 py-2 w-40"></div>
-                <button className="bg-burgundy px-3 py-2 text-white">인증번호</button>
+          <Form label="전화번호">
+            <div className="flex flex-col gap-2">
+              <InputError value={phone} setValue={setPhone} placeholder="전화번호" />
+              <div className="w-4/5">
+                <div className="flex flex-row gap-2 w-full">
+                  <div className="border border-black px-3 py-2 w-40"></div>
+                  <button className="bg-burgundy px-3 py-2 text-white">인증번호</button>
+                </div>
               </div>
             </div>
-          </div>
+          </Form>
         </div>
 
         <div className="flex flex-col gap-3 w-full text-lg">
@@ -133,7 +179,13 @@ export default function Signup() {
           </label>
         </div>
 
-        <button className="bg-burgundy py-4 text-white w-1/2 text-xl">회원가입</button>
+        <button
+          type="button"
+          onClick={handleSave}
+          className="bg-burgundy py-4 text-white w-1/2 text-xl"
+          >
+            회원가입
+          </button>
       </div>
     </div>
   )
