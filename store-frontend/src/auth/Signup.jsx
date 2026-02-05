@@ -1,35 +1,25 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import DaumPostcode from 'react-daum-postcode'
 import Form from '../components/common/Form'
 import Input from '../components/input/OptionInput'
 import InputError from '../components/input/InputError'
 
 export default function Signup() {
-  const [id, setId] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPW, setConfirmPW] = useState('')
-  const [name, setName] = useState('')
-  const [address, setAddress] = useState('')
-  const [detailAddress, setDetailAddress] = useState('')
-  const [phone, setPhone] = useState('')
-
-  const [openPostcode, setOpenPostcode] = useState(false)
-  const [zipCode, setZipcode] = useState("")
-  const [roadAddress, setRoadAddress] = useState("")
-
   const navigate = useNavigate()
 
-  const handleClick = () => {
-    setOpenPostcode((prev) => !prev)
-  }
+  const [form, setForm] = useState({
+    id: "",
+    password: "",
+    confirmPW: "",
+    name: "",
+    address: "",
+    detailAddress: "",
+    phone: "",
+  })
 
-  const handleSelectAddress = (data) => {
-    setZipcode(data.zonecode)
-    setRoadAddress(data.roadAddress)
-    setAddress(data.roadAddress)
-    setOpenPostcode(false)
-  }
+  const isPasswordSame = form.password === form.confirmPW
 
   const [agree, setAgree] = useState({
     personalInformation: false,
@@ -37,20 +27,58 @@ export default function Signup() {
     privacy: false,
   })
 
-  const isPasswordSame = password === confirmPW
+  const [openPostcode, setOpenPostcode] = useState(false)
+  const [zipCode, setZipcode] = useState("")
+  const [roadAddress, setRoadAddress] = useState("")
+
+  const handleClick = () => {
+    setOpenPostcode(prev => !prev)
+  }
 
   const canSave =
-    id && password && isPasswordSame && name && address && phone &&
+    form.id && form.password && isPasswordSame && form.name &&
+    form.address && form.phone &&
     agree.terms && agree.privacy
 
-  const handleSave = () => {
+  // 공통 입력 핸들러
+  const setValue = (key, value) => {
+    setForm(prev => ({
+      ...prev,
+      [key]: value,
+    }))
+  }
+
+  const handleSelectAddress = (data) => {
+    setZipcode(data.zonecode)
+    setRoadAddress(data.roadAddress)
+    setValue('address', data.roadAddress)
+    setOpenPostcode(false)
+  }
+
+  const handleSave = async () => {
     if (!canSave) {
       alert('정보를 모두 입력하세요.')
       return
     }
 
-    alert('회원가입을 환영합니다.')
-    navigate('/login')
+    try {
+      await axios.post(
+        'http://127.0.0.1:8000/accounts/signup/',
+        {
+          id: form.id,
+          password: form.password,
+          name: form.name,
+          address: form.address,
+          detailAddress: form.detailAddress,
+          phone: form.phone,
+        }
+      )
+      alert("회원가입을 환영합니다.")
+      navigate('/login')
+    } catch (err) {
+      console.error(err.response?.data)
+      alert("회원가입 실패")
+    }
   }
 
   return (
@@ -60,16 +88,16 @@ export default function Signup() {
 
         <div className="flex flex-col gap-8 w-full text-left">
           <Form label="아이디">
-            <InputError value={id} setValue={setId} />
+            <InputError value={form.id} setValue={(v) => setValue('id', v)} />
           </Form>
 
           <div className="flex flex-col">
             <Form label="비밀번호" className="pb-8">
-              <InputError value={password} setValue={setPassword} type="password" />
+              <InputError value={form.password} setValue={(v) => setValue('password', v)} type="password" />
             </Form>
             
             <Form label="비밀번호 확인">
-              <InputError value={confirmPW} setValue={setConfirmPW} type="password" />
+              <InputError value={form.confirmPW} setValue={(v) => setValue('confirmPW', v)} type="password" />
             </Form>
 
             {!isPasswordSame && (
@@ -80,7 +108,7 @@ export default function Signup() {
           </div>
 
           <Form label="이름">
-            <InputError value={name} setValue={setName} />
+            <InputError value={form.name} setValue={(v) => setValue('name', v)} />
           </Form>
 
           <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
@@ -118,19 +146,16 @@ export default function Signup() {
                 )}
               </div>
 
-              <div
-                value={address} setValue={setAddress}
-                className="flex items-center border border-black px-3 py-2 h-12"
-              >
+              <div className="flex items-center border border-black px-3 py-2 h-12">
                 {roadAddress}
               </div>
-              <Input value={detailAddress} setValue={setDetailAddress} placeholder="상세주소" />
+              <Input value={form.detailAddress} setValue={(v) => setValue('detailAddress', v)} placeholder="상세주소" />
             </div>
           </div>
 
           <Form label="전화번호">
             <div className="flex flex-col gap-2">
-              <InputError value={phone} setValue={setPhone} placeholder="전화번호" />
+              <InputError value={form.phone} setValue={(v) => setValue('phone', v)} placeholder="전화번호" />
               <div className="w-4/5">
                 <div className="flex flex-row gap-2 w-full">
                   <div className="border border-black px-3 py-2 w-40"></div>

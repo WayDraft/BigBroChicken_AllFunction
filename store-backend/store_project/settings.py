@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt', # JWT 인증용
     'user', # 생성한 user 앱 추가
     'order', # 주문(order) 앱
+    'accounts', # 회원가입 앱
 ]
 
 MIDDLEWARE = [
