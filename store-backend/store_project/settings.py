@@ -86,9 +86,9 @@ REST_FRAMEWORK = {
 # JWT 설정 (만료 시간 등)
 SIMPLE_JWT = {
     # Access Token 만료 시간 (예: 5분)
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5), 
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=6), 
     # Refresh Token 만료 시간 (예: 1일)
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     # 토큰 타입 헤더 (Bearer)
     "AUTH_HEADER_TYPES": ("Bearer",),
 }

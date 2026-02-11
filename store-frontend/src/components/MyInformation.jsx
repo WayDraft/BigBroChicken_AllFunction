@@ -9,11 +9,34 @@ import Cookies from 'js-cookie'
 console.log("토큰: ", Cookies.get("access_token"))
 
 export default function MyInformation() {
-  
   const { user, loading } = useAuth()
-
   const [userData, setUserData] = useState(null)
 
+  // 수정 가능한 정보 (초기값 有)
+  const [name, setName] = useState('')   // 이름
+  const [address, setAddress] = useState('')   // 주소
+  const [detailAddress, setDetailAddress] = useState('')   // 상세주소
+  const [phone, setPhone] = useState('')   // 전화번호
+
+  // 비밀번호 관련
+  const [currentPW, setCurrentPW] = useState('')
+  const [newPW, setNewPW] = useState('')
+  const [confirmPW, setConfirmPW] = useState('')
+
+  const isPasswordSame = newPW === confirmPW
+
+  // 주소 검색
+  const [zipCode, setZipcode] = useState('')
+  const [openPostcode, setOpenPostcode] = useState(false)
+
+  const handleClick = () => setOpenPostcode((prev) => !prev)
+
+  const handleSelectAddress = (data) => {
+    setZipcode(data.zonecode)
+    setAddress(data.roadAddress)
+    setOpenPostcode(false)
+  }
+  // 초기 데이터 불러오기
   useEffect(() => {
     if (!user) return;
 
@@ -28,60 +51,40 @@ export default function MyInformation() {
     })
   }, [user])
 
-  // 비밀번호 관련
-  const [savePassword, setSavePassword] = useState('')   // 저장된 비밀번호
-  const [currentPW, setCurrentPW] = useState('')
-  const [newPW, setNewPW] = useState('')
-  const [confirmPW, setConfirmPW] = useState('')
+  const canSave =
+    (
+      (!currentPW && !newPW && !confirmPW) ||   // 비밀번호 바꾸지 않는 경우
+      (currentPW && newPW && confirmPW && isPasswordSame)   // 비밀번호 바꾸는 경우
+    ) &&
+    name && address && phone
 
-  const isPasswordValid = currentPW === savePassword
-  const isPasswordSame = newPW === confirmPW
-
-  // 수정 가능한 정보 (초기값 有)
-  const [name, setName] = useState('')   // 이름
-  const [address, setAddress] = useState('')   // 주소
-  const [detailAddress, setDetailAddress] = useState('')   // 상세주소
-  const [phone, setPhone] = useState('')   // 전화번호
-
-  // 주소 관련
-  const [zipCode, setZipcode] = useState('')
-  const [openPostcode, setOpenPostcode] = useState(false)
-
-  const handleClick = () => {
-    setOpenPostcode((prev) => !prev)
-  } 
-
-  const handleSelectAddress = (data) => {
-    setZipcode(data.zonecode)
-    setAddress(data.roadAddress)
-    setOpenPostcode(false)
-  }
-
-  const handleSave = () => {
+  // 업데이트 정보 저장
+  const handleSave = async () => {
     if (!canSave) {
       alert('정보를 모두 입력하세요.')
       return
     }
 
-    alert('정보를 저장했습니다.')
+    try {
+      const payload = {
+        currentPW: currentPW || undefined,
+        newPW: newPW || undefined,
+        name, address, detailAddress, phone
+      }
+      const res = await apiClient.put("/update_profile/", payload)
+      alert(res.data.message || '정보를 저장했습니다.')
 
-    if (newPW) {
-      // 비밀번호 재설정 시 새로운 비밀번호로 업데이트하고 비밀번호 입력칸 모두 리셋
-      setSavePassword(newPW)
+      // 비밀번호 입력 초기화
       setCurrentPW('')
       setNewPW('')
       setConfirmPW('')
+    } catch (err) {
+      console.error(err)
+      alert(err.response?.data?.error || '저장 중 오류가 발생했습니다.')
     }
   }
 
-  const canSave =
-    (
-      // 비밀번호 바꾸지 않는 경우
-      (!currentPW && !newPW && !confirmPW) ||
-      // 비밀번호 바꾸는 경우
-      (isPasswordValid && newPW && isPasswordSame)
-    ) &&
-    name && address && phone
+  
 
   return (
     <div className="flex flex-col items-center w-full px-20">
@@ -89,7 +92,7 @@ export default function MyInformation() {
         {/* 아이디 */}
         <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
           <span className="w-1/5">아이디</span>
-          <span className="w-4/5 border border-gray-600 focus:outline-none px-3 py-2">{name}</span>
+          <span className="w-4/5 border border-gray-600 focus:outline-none px-3 py-2">{userData?.id}</span>
         </div>
 
         {/* 비밀번호 */}
@@ -97,24 +100,20 @@ export default function MyInformation() {
           <span className="w-1/5">비밀번호</span>
           <div className="w-4/5 flex flex-col gap-3">
           {/* 기존 비밀번호 */}
-            <InputError
+            <Input
               type="password"
               value={currentPW}
               setValue={setCurrentPW}
               placeholder="현재 비밀번호"
             />
-            {/* 기존 비밀번호 확인 */}
-            {currentPW && !isPasswordValid && (
-              <span className="text-red-600 text-sm">비밀번호가 일치하지 않습니다.</span>
-            )}
 
             {/* 새 비밀번호 */}
-            <InputError
+            <Input
               type="password"
               value={newPW}
               setValue={setNewPW}
               placeholder="새 비밀번호"
-              disabled={!isPasswordValid}
+              disabled={!currentPW}
             />
 
             <Input
@@ -122,9 +121,9 @@ export default function MyInformation() {
               value={confirmPW}
               setValue={setConfirmPW}
               placeholder="새 비밀번호 확인"
-              disabled={!isPasswordValid}
+              disabled={!currentPW}
             />
-            {!isPasswordSame && (
+            {newPW && confirmPW && !isPasswordSame && (
               <span className="text-red-600 text-sm">비밀번호가 일치하지 않습니다.</span>
             )}
 
