@@ -15,10 +15,17 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiClient.post('/token/', { username, password });
       const { access, refresh } = response.data;
-      Cookies.set('access_token', access, { expires: 1 / 24 });
-      Cookies.set('refresh_token', refresh, { expires: 7 });
-      const userProfile = await apiClient.get('/profile/');
+
+      Cookies.set('access_token', access, { expires: 1 / 24, path: '/' });
+      Cookies.set('refresh_token', refresh, { expires: 7, path: '/' });
+
+      const userProfile = await apiClient.get('/profile/', {
+        headers: {
+          Authorization: `Bearer ${access}`
+        }
+      });
       setUser(userProfile.data);
+
       return true;
     } catch (error) {
       console.error('Login failed:', error);

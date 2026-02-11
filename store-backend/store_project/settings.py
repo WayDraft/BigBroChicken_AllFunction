@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,6 +64,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite 기본 포트
     "http://127.0.0.1:5173",
     # 필요하다면 React 개발 서버의 포트를 확인하여 추가하기
+]
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+  'authorization',
 ]
 
 # Django REST Framework (DRF) 설정

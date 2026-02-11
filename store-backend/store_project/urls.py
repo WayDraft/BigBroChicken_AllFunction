@@ -39,8 +39,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
 
     # /api/products/ 등 상품 관련 URL
-    path('api/', include('product.urls')), 
     path('api/', include('user.urls')),  # 사용자 관련 URL 추가 : user앱 URL 추가
+    path('api/', include('product.urls')), 
     path('api/order/', include('order.urls')),  # 주문 관련 URL 추가 : order앱 URL 추가
 
     # --- JWT 인증 API 추가 ---

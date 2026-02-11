@@ -1,21 +1,35 @@
+import React, { useState, useEffect } from "react"
+import { useAuth } from '../context/AuthContext'
 import Input from "../components/input/OptionInput"
 import InputError from "../components/input/InputError"
 import DaumPostcode from 'react-daum-postcode'
-import { useState } from "react"
+import apiClient from '../services/apiClient'
+import Cookies from 'js-cookie'
 
-{/* 테스트 정보 */}
-const user = {
-  id: 'nertee1192',
-  password: '1234',
-  name: '손지은',
-  address: '대구광역시',
-  detailAddress: '101동 1001호',
-  phone: '01012345678'
-}
+console.log("토큰: ", Cookies.get("access_token"))
 
 export default function MyInformation() {
+  
+  const { user, loading } = useAuth()
+
+  const [userData, setUserData] = useState(null)
+
+  useEffect(() => {
+    if (!user) return;
+
+    apiClient.get("/my_info/").then(res => {
+      setUserData(res.data)
+      setName(res.data.name || '')
+      setAddress(res.data.address|| '')
+      setDetailAddress(res.data.detailAddress || '')
+      setPhone(res.data.phone || '')
+    }).catch(err => {
+      console.error("회원정보 불러오기 실패: ", err)
+    })
+  }, [user])
+
   // 비밀번호 관련
-  const [savePassword, setSavePassword] = useState(user.password)   // 저장된 비밀번호
+  const [savePassword, setSavePassword] = useState('')   // 저장된 비밀번호
   const [currentPW, setCurrentPW] = useState('')
   const [newPW, setNewPW] = useState('')
   const [confirmPW, setConfirmPW] = useState('')
@@ -24,10 +38,10 @@ export default function MyInformation() {
   const isPasswordSame = newPW === confirmPW
 
   // 수정 가능한 정보 (초기값 有)
-  const [name, setName] = useState(user.name)   // 이름
-  const [address, setAddress] = useState(user.address)   // 주소
-  const [detailAddress, setDetailAddress] = useState(user.detailAddress)   // 상세주소
-  const [phone, setPhone] = useState(user.phone)   // 전화번호
+  const [name, setName] = useState('')   // 이름
+  const [address, setAddress] = useState('')   // 주소
+  const [detailAddress, setDetailAddress] = useState('')   // 상세주소
+  const [phone, setPhone] = useState('')   // 전화번호
 
   // 주소 관련
   const [zipCode, setZipcode] = useState('')
@@ -75,7 +89,7 @@ export default function MyInformation() {
         {/* 아이디 */}
         <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
           <span className="w-1/5">아이디</span>
-          <span className="w-4/5 border border-gray-600 focus:outline-none px-3 py-2">nertee1192</span>
+          <span className="w-4/5 border border-gray-600 focus:outline-none px-3 py-2">{name}</span>
         </div>
 
         {/* 비밀번호 */}
