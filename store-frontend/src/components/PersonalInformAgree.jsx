@@ -8,9 +8,9 @@ export default function PersonalInformAgree({isOpen, onClose}) {
       <div className="relative">
         <div className="sticky top-0 left-0 z-50 w-full pt-20 pb-10 mb-10 bg-white border-b border-gray-200">
           <div className="text-center">
-            <span className="text-3xl font-bold text-black">(주)형님닭구이 가맹요청 관련 개인정보처리방침(안)</span>
+            <span className="text-xl lg:text-3xl font-bold text-black">(주)형님닭구이 가맹요청 관련 개인정보처리방침(안)</span>
           </div>
-          <button onClick={onClose} className="text-3xl absolute top-10 right-2">✖</button>
+          <button onClick={onClose} className="text-xl lg:text-3xl absolute top-10 right-2">✖</button>
         </div>
         
         <div className="flex flex-col space-y-8 text-left">

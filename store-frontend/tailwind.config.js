@@ -6,9 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      /*
       fontFamily: {
         Gmarket: ['GmarketSansMedium', 'sans-serif'],
       },
+      */
       colors: {
         transparent : 'transparent',
         current : 'currentColor',

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import PersonalAgree from '../components/PersonalInformAgree'
+import InputError from '../components/input/InputError'
 
 function useInView(options = {}) {
   const ref = useRef(null)
@@ -17,7 +18,7 @@ function useInView(options = {}) {
   return [ref, visible]
 }
 
-function ScrollAnimation({ children, delay = 0, className="" }) {
+function ScrollAnimation({ children, className="" }) {
   const [ref, isVisible] = useInView({threshold: 0})
 
   return (
@@ -41,7 +42,7 @@ export default function Inquiry() {
   const modal = (
     <div className="relative">
       <button
-        className="w-[120px] h-[40px] bg-gray-800 text-white flex justify-center items-center"
+        className="py-1 px-2 lg:px-5 bg-gray-800 text-xs lg:text-md text-white flex justify-center items-center"
         onClick={() => setModalOpen(true)}
       >
         전문보기
@@ -55,10 +56,10 @@ export default function Inquiry() {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="flex flex-col w-[1500px]">
-        <ScrollAnimation className="flex flex-col w-full py-20">
-          <span className="text-5xl font-bold pb-10">가맹문의</span>
-          <p className="text-xl">
+      <div className="flex flex-col">
+        <ScrollAnimation className="flex flex-col w-full py-20 px-5 lg:px-0">
+          <span className="text-3xl lg:text-5xl font-bold pb-10">가맹문의</span>
+          <p className="text-sm  lg:text-xl">
             본사로 접수되는 이메일 문의입니다.<br/>
             촬영 예약과 관련된 문의는 'Q&A'를 통해 지점의 카카오톡 플러스 친구로 문의 부탁드립니다.<br/>
             내용 확인되는대로 기재해주신 이메일 주소로 회신드리겠습니다
@@ -67,29 +68,29 @@ export default function Inquiry() {
 
         <div className="w-full border-[1px] border-black mb-10" />
 
-        <ScrollAnimation className="w-full flex flex-col space-y-4 px-4 pb-10">
-          <div className="flex flex-row w-full h-[50px]">
-            <div className="w-[200px] flex items-center font-bold">고객명</div>
-            <input className="w-full border border-black"></input>
+        <ScrollAnimation className="w-full flex flex-col space-y-4 px-4 pb-10 text-sm lg:text-md">
+          <div className="flex flex-row justify-between w-full">
+            <div className="w-1/5 flex items-center font-bold">고객명</div>
+            <InputError />
           </div>
 
-          <div className="flex flex-row w-full h-[50px]">
-            <div className="w-[200px] flex items-center font-bold">연락처</div>
-            <input className="w-full border border-black"></input>
+          <div className="flex flex-row justify-between w-full">
+            <div className="w-1/5 flex items-center font-bold">연락처</div>
+            <InputError />
           </div>
 
-          <div className="flex flex-row w-full h-[50px]">
-            <div className="w-[200px] flex items-center font-bold">희망지역</div>
-            <input className="w-full border border-black"></input>
+          <div className="flex flex-row justify-between w-full">
+            <div className="w-1/5 flex items-center font-bold">희망지역</div>
+            <InputError />
           </div>
 
-          <div className="flex flex-row w-full h-[50px]">
-            <div className="w-[200px] flex items-center font-bold">창업경험</div>
+          <div className="flex flex-row justify-between">
+            <div className="w-1/5 flex items-center font-bold">창업경험</div>
             <div className="w-full flex flex-row space-x-3">
               <button
                 onClick={() => setChoose('있음')}
                 className={`
-                  w-[150px] flex items-center justify-center border border-black
+                  w-[100px] lg:w-[150px] flex items-center justify-center border border-black
                   ${choose==='있음' ? 'bg-gray-700 text-white' : 'bg-white text-black'}
                 `}
               >
@@ -98,7 +99,7 @@ export default function Inquiry() {
               <button
                 onClick={() => setChoose('없음')}
                 className={`
-                  w-[150px] flex items-center justify-center border border-black
+                  w-[100px] lg:w-[150px] flex items-center justify-center border border-black
                   ${choose==='없음' ? 'bg-gray-700 text-white' : 'bg-white text-black'}
                 `}
               >
@@ -106,16 +107,17 @@ export default function Inquiry() {
               </button>
             </div>
           </div>
-          <div className="flex flex-row w-full pb-10">
-            <div className="w-[200px] h-[50px] flex items-center font-bold">상세 문의내용</div>
+
+          <div className="flex flex-row justify-between w-full pb-10">
+            <div className="w-1/5 flex items-center font-bold">상세 문의내용</div>
             <textarea className="w-full h-[150px] border border-black p-2" placeholder="문의내용을 입력해주세요." />
           </div>
 
           <div className="flex flex-row items-center justify-between w-full p-3 border border-black">
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center text-xs lg:text-md">
               <input
                 type="checkbox"
-                className="w-5 h-5 rounded-full border-2 border-gray-400 checked:bg-burgundy mr-3"
+                className="w-3 lg:w-5 aspect-square rounded-full border-2 border-gray-400 checked:bg-burgundy mr-3"
               />
               <p>개인정보취급방침을 읽었으며 이에 동의합니다.</p>
             </div>

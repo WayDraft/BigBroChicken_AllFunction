@@ -6,7 +6,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="text-sm sm:text-lg bg-burgundy text-white w-full p-6 flex items-start flex-col mb-[90px] lg:mb-0">
+    <footer className="text-sm sm:text-lg bg-burgundy text-white w-full p-6 flex items-start flex-col">
       <div className="flex flex-low gap-x-5 sm:gap-x-8">
         <p>개인정보처리방침</p>
         <p>이용약관</p>

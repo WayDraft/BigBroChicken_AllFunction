@@ -26,8 +26,8 @@ export default function Brand() {
           </div>
         </div>
 
-        <div className="w-full h-[550px] flex flex-col sm:flex-row items-center sm:justify-between lg:justify-center my-[200px]">
-          <div className="flex flex-col text-left pl-5 lg:pr-[300px]">
+        <div className="w-full sm:h-[550px] flex flex-col sm:flex-row items-center sm:justify-between lg:justify-center my-20 lg:my-[200px]">
+          <div className="flex flex-col text-left pl-5 pb-20 lg:pb-0 lg:pr-[300px]">
             <span className="text-4xl pt-10 sm:pt-0 lg:text-6xl font-bold pb-10">
               단지 곁에서<br />
               더 합리적이게
@@ -36,34 +36,32 @@ export default function Brand() {
               우리는 공장 직제조로 불필요한 비용을 줄이고,<br/>
               직화 숯불로 닭의 풍미를 제대로 살립니다.
             </p>
-            <p className="lg:text-xl">
+            <p className="pb-10 lg:pb-0 lg:text-xl">
               소금·양념 2종과 시그니처 사이드메뉴 목살,<br/>
               그리고 누구나 좋아하는 사이드로 다가갑니다.
             </p>
           </div>
-          <div className="sm:relative flex flex-row items-center justify-end h-full sm:pr-5">
+          <div className="sm:relative flex flex-col sm:flex-row items-center justify-end h-full sm:pr-5">
             <img
               src="/img/chicken_2.jpg"
               className="
-                sm:relative sm:z-20 sm:rounded-xl sm:object-cover shadow-lg sm:ml-[30px]
-                w-1/3
+                sm:relative sm:z-20 sm:rounded-xl sm:object-cover shadow-lg sm:ml-[30px]sm:w-1/3
                 sm:top-[60px] sm:w-[300px] sm:h-[200px] 
                 lg:top-[120px] lg:left-[130px] lg:w-[400px] lg:h-[300px]"
             />
             <img
               src="/img/logo_2.jpg"
-              className="
-                sm:absolute z-10 sm:rounded-xl sm:object-cover shadow-lg
-                w-2/3 
+              className="hidden sm:block
+                sm:absolute z-10 sm:rounded-xl sm:object-cover shadow-lg sm:w-2/3 
                 sm:right-[80px] sm:bottom-[260px] sm:w-[400px] sm:h-[280px]
                 lg:bottom-[240px] lg:right[120px] lg:w-[500px]"
             />
           </div>
         </div>
 
-        <div className="w-full flex flex-col lg:flex-row lg:justify-between lg:pr-[120px] mb-[200px]">
-          <img src="/img/store.jpg" className="w-full h-[300px] lg:w-[800px] lg:h-[400px]" />
-          <div className="lg:text-right py-10 sm:py-20 text-sm sm:text-xl">
+        <div className="w-full flex flex-col flex-col-reverse lg:flex-row lg:justify-between lg:pr-[120px] lg:mb-[200px]">
+          <img src="/img/store.jpg" className="w-full h-[200px] lg:w-[800px] lg:h-[400px]" />
+          <div className="lg:text-right pb-20 lg:pb-0 sm:py-20 text-sm sm:text-xl">
             <p className="pb-4">
               <span className="text-burgundy font-bold text-xl sm:text-3xl">형님닭구이</span>는 공장 직제조와 직배송 원육으로<br/>
               신선함과 가격을 모두 잡은 직화 숯불 닭구이 전문점입니다.

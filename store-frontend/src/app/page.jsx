@@ -16,7 +16,7 @@ export default function Main() {
   const timeoutRef = useRef(null);   // 슬라이드 타이머 관리
   const wrapperRef = useRef(null);   // 슬라이드 컨테이너 너비 계산
   const [itemWidth, setItemWidth] = useState(100);   // 슬라이드 박스 크기
-  const gap = 50;
+  const gap = window.innerWidth >= 1024 ? 50 : 20;   // 웹일 때는 메뉴 사이 갭이 50, 모바일은 20
 
   // 반응형 visibleCount 및 itemWidth 계산
   useEffect(() => {
@@ -68,48 +68,29 @@ export default function Main() {
     }
   }, [isTransitioning])
 
-  {/*
-  // 무한 슬라이드 효과: 마지막(오른쪽 끝)에서 바로 처음(왼쪽 끝)으로 점프
-  useEffect(() => {
-    if (index >= exampleBox.length * 2) {
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setIndex(visibleCount);
-      }, 700);
-    } 
-    
-    if (index <= exampleBox.length - visibleCount) {
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setIndex(exampleBox.length);
-      }, 700);
-    }
-  }, [index]);
-  */}
-
   return (
     <>
     <main className="bg-white w-full flex flex-col">
       <img src="/img/main.png" className="w-full" />
 
-      <div className="w-full h-128 flex flex-col items-center justify-center py-52">
-        <p className="text-4xl font-bold text-red-800 pb-7">형님 닭구이</p>
-        <p className="text-2xl pb-3">"고객님은 저희의 형님입니다."</p>
-        <p className="text-xl pb-9">
+      <div className="w-full h-128 flex flex-col items-center justify-center py-20 lg:py-52">
+        <p className="text-3xl lg:text-4xl font-bold text-red-800 pb-7">형님 닭구이</p>
+        <p className="text-xl lg:text-2xl pb-3">"고객님은 저희의 형님입니다."</p>
+        <p className="text-md lg:text-xl pb-9">
           공장 직제조로 원가를 낮추고, 동네상권에 더 가깝게.<br/>
           직화 숯불로 구워 담백·든든하게 즐기는 동네 대표 닭구이집.
         </p>
         <Link
           to="/brand"
-          className="border-2 border-black p-3 flex justify-between w-40 rounded-3xl"
+          className="border-2 border-black px-5 py-3 flex justify-between items-center w-36 lg:w-[180px] rounded-3xl"
         >
-          <p className="text-lg">브랜드 스토리</p>
+          <p className="text-sm lg:text-lg">브랜드 스토리</p>
           <p>→</p>
         </Link>
       </div>
 
-      <div className="w-full flex flex-col items-center justify-center bg-burgundy py-[150px] px-36">
-        <p className='text-4xl text-white font-bold pb-20'>형님 닭구이 대표 메뉴</p>
+      <div className="w-full flex flex-col items-center justify-center bg-burgundy py-24 lg:py-[150px] px-3 lg:px-36">
+        <p className='text-2xl lg:text-4xl text-white font-bold pb-10 lg:pb-20'>형님 닭구이 대표 메뉴</p>
 
         {/* 슬라이드 영역 */}
         <div
@@ -139,6 +120,7 @@ export default function Main() {
                 }
               }}
             >
+              {/* 메뉴 밖스(흰색) 디자인 */}
               {slides.map((img, i) => (
                 <div
                   className="rounded-xl bg-white py-5 px-5"
@@ -157,10 +139,10 @@ export default function Main() {
                     />
                   </div>
 
-                  <div className="border-[1px] border-gray-200 my-5" />
+                  <div className="border-[1px] border-gray-200 my-2 lg:my-5" />
 
                   <div className="py-2 text-center">
-                    <span className="text-xl">{img.name}</span>
+                    <span className="text-sm lg:text-xl">{img.name}</span>
                   </div>
                 </div>
               ))}     
@@ -169,13 +151,13 @@ export default function Main() {
         </div>        
       </div>
 
-      <div className="w-full h-128 flex flex-col items-center justify-center py-52">
-        <p className="text-3xl font-bold text-red-800 pb-5">가맹문의</p>
+      <div className="w-full h-128 flex flex-col items-center justify-center py-32 lg:py-52">
+        <p className="text-2xl lg:text-4xl font-bold text-red-800 pb-5">가맹문의</p>
         <Link
           to="/inquiry"
-          className="border-2 border-black p-3 flex justify-between w-40 rounded-3xl"
+          className="border-2 border-black px-5 py-3 flex justify-between items-center lg:w-[180px] rounded-3xl"
         >
-          <p>가맹 문의하기</p>
+          <p className="text-sm lg:text-lg">가맹 문의하기</p>
           <p>→</p>
         </Link>
       </div>

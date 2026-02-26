@@ -3,8 +3,8 @@ import menuItems from '../data/MenuItem'
 
 export default function Menu() {
   return (
-    <div className="py-20 px-[120px] bg-white min-h-screen flex flex-col justify-center mb-20">
-      <h2 className="text-5xl font-bold pb-20">메뉴</h2>
+    <div className="py-20 px-5 lg:px-[120px] bg-white min-h-screen flex flex-col justify-center mb-20">
+      <h2 className="text-3xl lg:text-5xl font-bold pb-20">메뉴</h2>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center items-center">
         {menuItems.map((item) => (

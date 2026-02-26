@@ -41,7 +41,7 @@ function AppContent() {
       <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       <Slide isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      {!isAdmin && !isMypage && <QuickMenu />}
+      {/*{!isAdmin && !isMypage && <QuickMenu />}*/}
       
         <Routes>
           <Route path="/" element={<Main isOpen={isOpen} setIsOpen={setIsOpen} />} />

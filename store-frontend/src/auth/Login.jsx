@@ -22,10 +22,10 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center w-full gap-10 py-20">
-      <span className="text-4xl font-bold">로그인</span>
+      <span className="text-3xl lg:text-5xl font-bold">로그인</span>
 
       <form className="flex justify-center items-center w-full" onSubmit={handleSubmit}>
-        <div className="flex flex-col w-1/3 gap-3">
+        <div className="flex flex-col lg:w-1/3 gap-3">
           <input
             type="text"
             required
@@ -55,9 +55,9 @@ export default function Login() {
         </div>
       </form>
 
-      <div className="h-[1px] w-1/2 bg-black"></div>
+      <div className="h-[1px] w-4/5 lg:w-1/2 bg-black"></div>
 
-      <div className="flex flex-col justify-center items-center w-1/3 gap-10">
+      <div className="flex flex-col justify-center items-center lg:w-1/3 gap-10">
         <span className="text-xl">아직 회원이 아니신가요?</span>
         <Link to="/signup" className="bg-burgundy text-white items-center py-4 w-full">회원가입</Link>
       </div>

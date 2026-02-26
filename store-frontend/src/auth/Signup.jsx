@@ -83,16 +83,16 @@ export default function Signup() {
 
   return (
     <div className="flex items-center justify-center w-full">
-      <div className="flex flex-col items-center justify-center w-1/2 py-20 gap-16">
-        <span className="text-4xl font-bold">회원가입</span>
+      <div className="flex flex-col items-center justify-center lg:w-1/2 px-5 lg:px-0 py-20 gap-16">
+        <span className="text-3xl lg:text-5xl font-bold">회원가입</span>
 
-        <div className="flex flex-col gap-8 w-full text-left">
+        <div className="flex flex-col gap-3 lg:gap-8 w-full text-left">
           <Form label="아이디">
             <InputError value={form.id} setValue={(v) => setValue('id', v)} />
           </Form>
 
           <div className="flex flex-col">
-            <Form label="비밀번호" className="pb-8">
+            <Form label="비밀번호" className="pb-3 lg:pb-8">
               <InputError value={form.password} setValue={(v) => setValue('password', v)} type="password" />
             </Form>
             
@@ -111,7 +111,7 @@ export default function Signup() {
             <InputError value={form.name} setValue={(v) => setValue('name', v)} />
           </Form>
 
-          <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
+          <div className="flex flex-row justify-between items-center w-full gap-3 text-sm lg:text-lg">
             <span className="w-1/5">주소</span>
             <div className="flex flex-col w-4/5 gap-2">
               <div className="flex flex-row gap-2">
@@ -121,7 +121,7 @@ export default function Signup() {
                   onClick={handleClick}
                   className="bg-burgundy px-3 py-2 text-white"
                 >
-                  주소 검색
+                  주소검색
                 </button>
 
                 {/* 주소 검색 모달 */}
@@ -156,7 +156,7 @@ export default function Signup() {
           <Form label="전화번호">
             <div className="flex flex-col gap-2">
               <InputError value={form.phone} setValue={(v) => setValue('phone', v)} placeholder="전화번호" />
-              <div className="w-4/5">
+              <div className="lg:w-4/5">
                 <div className="flex flex-row gap-2 w-full">
                   <div className="border border-black px-3 py-2 w-40"></div>
                   <button className="bg-burgundy px-3 py-2 text-white">인증번호</button>
@@ -166,14 +166,14 @@ export default function Signup() {
           </Form>
         </div>
 
-        <div className="flex flex-col gap-3 w-full text-lg">
+        <div className="flex flex-col gap-3 w-full text-sm lg:text-lg">
           <label>
             <div className="flex flex-row gap-3 items-center">
               <input
                 type="checkbox"
                 checked={agree.personalInformation}
                 onChange={(e) => setAgree({...agree, personalInformation: e.target.checked})}
-                className="w-5 h-5 accent-burgundy"
+                className="w-3 lg:w-5 aspect-square accent-burgundy"
               />
               <span>이용약관, 개인정보 수집 및 이용에 모두 동의합니다.</span>
             </div>
@@ -185,7 +185,7 @@ export default function Signup() {
                 type="checkbox"
                 checked={agree.terms}
                 onChange={(e) => setAgree({...agree, terms: e.target.checked})}
-                className="w-5 h-5 accent-burgundy"
+                className="w-3 lg:w-5 aspect-square accent-burgundy"
               />
               <span>[필수]  이용약관 동의</span>
             </div>
@@ -197,7 +197,7 @@ export default function Signup() {
                 type="checkbox"
                 checked={agree.privacy}
                 onChange={(e) => setAgree({...agree, privacy: e.target.checked})}
-                className="w-5 h-5 accent-burgundy"
+                className="w-3 lg:w-5 aspect-square accent-burgundy"
               />
               <span>[필수] 개인정보 수집 및 이용 동의</span>
             </div>
@@ -207,7 +207,7 @@ export default function Signup() {
         <button
           type="button"
           onClick={handleSave}
-          className="bg-burgundy py-4 text-white w-1/2 text-xl"
+          className="bg-burgundy py-2 lg:py-4 text-white w-1/2 text-lg lg:text-xl"
           >
             회원가입
           </button>

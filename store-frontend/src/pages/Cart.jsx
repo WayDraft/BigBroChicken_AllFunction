@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { FaMinus, FaPlus, FaEquals } from 'react-icons/fa'
+import apiClient from '../services/apiClient'
 
 export default function Cart() {
+  const [cartItems, setCartItems] =  useState([])
+
+  useEffect(() => {
+    apiClient.get("/cart/").then(res => setCartItems(res.data))
+  }, [])
+  
   return (
     <div className="flex flex-col items-center jusitfy-center w-full p-20">
       <span className="text-4xl pb-10">장바구니</span>
@@ -15,7 +23,8 @@ export default function Cart() {
           <span className="text-xl">전체선택</span>
         </div>
 
-        <div className="flex flex-col justify-center items-center py-40">
+        {cartItems.length === 0 ? (
+          <div className="flex flex-col justify-center items-center py-40">
           <span className="text-xl pb-8">상품이 없어요</span>
           <Link 
             to="/menu"
@@ -24,6 +33,18 @@ export default function Cart() {
             <span>상품 담으러 가기</span>
           </Link>
         </div>
+        ) : (
+          cartItems.map(item => (
+            <div key={item.id}>
+              <span>{item.menu.title}</span>
+              <span>{item.option.detail}</span>
+              <span>{item.option.quantity} 개</span>
+              <span>{item.option.price * item.quantity} 원</span>
+            </div>
+          ))
+        )}
+
+        
       </div>
 
       <div className="flex flex-row justify-between items-center w-full px-[300px] py-16 border border-burgundy text-xl gap-10">

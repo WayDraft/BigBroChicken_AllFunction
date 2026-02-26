@@ -92,7 +92,7 @@ export default function MyInformation() {
         {/* 아이디 */}
         <div className="flex flex-row justify-between items-center w-full gap-3 text-lg">
           <span className="w-1/5">아이디</span>
-          <span className="w-4/5 border border-gray-600 focus:outline-none px-3 py-2">{userData?.id}</span>
+          <span className="w-4/5 px-3 py-2">{userData?.id}</span>
         </div>
 
         {/* 비밀번호 */}

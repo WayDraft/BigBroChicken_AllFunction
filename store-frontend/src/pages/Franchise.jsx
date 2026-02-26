@@ -2,7 +2,7 @@ export default function Franchies() {
   return (
     <div className="w-full text-white">
       {/* 상단 검은 섹션 */}
-      <div className="flex flex-col gap-5 bg-black py-[300px] text-2xl px-32">
+      <div className="flex flex-col gap-5 bg-black py-20 lg:py-[300px] text-lg lg:text-2xl px-5 lg:px-32">
         <p>
           안녕하세요, <span className="font-bold">김창열과 함께하는 형님닭구이</span>입니다.
         </p>
@@ -26,9 +26,9 @@ export default function Franchies() {
         <div className="absolute inset-0 bg-black/50" />
 
         {/* 콘텐츠 */}
-        <div className="relative z-10 mx-auto py-[200px] px-32">
-          <div className="flex flex-col justify-start text-left gap-10 text-lg pb-[300px]">
-            <span className="text-4xl font-bold pb-8">
+        <div className="relative z-10 mx-auto py-[100px] lg:py-[200px] px-5 lg:px-32">
+          <div className="flex flex-col justify-start text-left gap-10 text-md lg:text-lg pb-[300px]">
+            <span className="text-3xl lg:text-4xl font-bold pb-8">
               형님 닭구이가 성공할 수 밖에 없는 이유.
             </span>
 
@@ -55,7 +55,7 @@ export default function Franchies() {
             </p>
           </div>
 
-          <div className="flex flex-col justify-end text-right gap-10 text-lg">
+          <div className="flex flex-col justify-end text-right gap-10 text-md lg:text-lg">
             <p>
               <span className="font-bold text-2xl">전문 마케팅 및 홍보 효과</span><br />
               홍보전문위원 DJ DOC 김창열과 협업하여 브랜드 신뢰도를 강화하고,<br />

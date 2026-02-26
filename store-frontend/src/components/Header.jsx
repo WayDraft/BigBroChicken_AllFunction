@@ -14,8 +14,8 @@ export default function Header({isOpen, setIsOpen}) {
 
   return (
     <header className="sticky top-0 z-50 bg-white w-full border-b border-gray">
-      <div className="flex flex-col w-full">
-        <div className="flex flex-row items-center justify-end px-8 pt-5 gap-5">
+      <div className="flex flex-col w-full pr-5 lg:pr-8">
+        <div className="flex flex-row items-center justify-end pt-5 gap-3 lg:gap-5">
           {user ? (
             <>
               <span>{user.username} 님</span>
@@ -33,8 +33,8 @@ export default function Header({isOpen, setIsOpen}) {
           )}
           
         </div>
-        <div className="w-full h-20 flex flex-low items-center justify-between pr-8">
-          <div className="relative w-[170px] h-[60px]">
+        <div className="w-full h-20 flex flex-low items-center justify-between">
+          <div className="relative w-[136px] h-[48px] lg:w-[170px] lg:h-[60px]">
             <Link to="/" className="block">
               <img src="/img/logo.png" className="absolute" />
             </Link>

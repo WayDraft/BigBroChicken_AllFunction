@@ -18,7 +18,7 @@ export default function InputError({ value, setValue, className='' , ...props })
         {...props}
       />
       {clicked && !value && (
-        <p className="text-red-700 text-sm mt-1">필수 항목입니다.</p>
+        <p className="text-red-700 text-left text-sm mt-1">필수 항목입니다.</p>
       )}
     </div>
   )
