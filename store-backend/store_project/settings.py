@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-4^-9w)v&8(qe+r2v3ana@blqc65rg_l4zcy3fsg!7%r^*i)4!n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -64,9 +64,10 @@ MIDDLEWARE = [
 
 # React 개발 서버 주소 허용
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vite 기본 포트
-    "http://127.0.0.1:5173",
+    #"http://localhost:5173",  # Vite 기본 포트
+    #"http://127.0.0.1:5173",
     # 필요하다면 React 개발 서버의 포트를 확인하여 추가하기
+    True
 ]
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
