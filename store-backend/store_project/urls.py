@@ -37,6 +37,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('accounts/', include('accounts.urls')),
+    path('cart/', include('cart.urls')),
 
     # /api/products/ 등 상품 관련 URL
     path('api/', include('user.urls')),  # 사용자 관련 URL 추가 : user앱 URL 추가

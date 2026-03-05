@@ -39,13 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'rest_framework', # Django REST framework(API 구축용)
     'corsheaders', # CORS 설정용
+    # 'rest_framework_simplejwt', # JWT 인증용
+
     'product', # 생성한 product 앱
-    'rest_framework_simplejwt', # JWT 인증용
     'user', # 생성한 user 앱 추가
     'order', # 주문(order) 앱
     'accounts', # 회원가입 앱
+    'cart', # 장바구니 앱
 ]
 
 MIDDLEWARE = [
