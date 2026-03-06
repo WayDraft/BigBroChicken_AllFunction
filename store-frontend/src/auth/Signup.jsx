@@ -63,7 +63,7 @@ export default function Signup() {
 
     try {
       await axios.post(
-        '/api/accounts/signup/',
+        '/api/register/',
         {
           id: form.id,
           password: form.password,
