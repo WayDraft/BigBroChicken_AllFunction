@@ -67,7 +67,7 @@ CORS_ALLOWED_ORIGINS = [
     #"http://localhost:5173",  # Vite 기본 포트
     #"http://127.0.0.1:5173",
     # 필요하다면 React 개발 서버의 포트를 확인하여 추가하기
-    True
+    "http://localhost:3001",
 ]
 
 CORS_ALLOW_HEADERS = list(default_headers) + [

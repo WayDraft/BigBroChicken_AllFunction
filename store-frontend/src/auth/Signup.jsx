@@ -63,7 +63,7 @@ export default function Signup() {
 
     try {
       await axios.post(
-        'http://127.0.0.1:8000/accounts/signup/',
+        '/api/accounts/signup/',
         {
           id: form.id,
           password: form.password,
