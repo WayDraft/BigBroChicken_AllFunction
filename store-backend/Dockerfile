@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "store_project.wsgi:application"]
+CMD sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn store_project.wsgi:application --bind 0.0.0.0:8000"
