@@ -6,8 +6,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - '8000:8000'
-    volumes: 
-      - ./store-backend:/app
     restart: always
 
   frontend:

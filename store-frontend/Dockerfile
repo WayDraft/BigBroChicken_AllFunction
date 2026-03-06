@@ -7,7 +7,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . . 
-RUN npm run dev
+RUN npm run build
 
 # Use official Nginx image for serving static files
 FROM nginx:alpine
