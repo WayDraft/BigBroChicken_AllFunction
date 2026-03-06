@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // Django 백엔드의 기본 주소
-const API_BASE_URL = 'http://127.0.0.1:8000/api/products'; 
+const API_BASE_URL = '/api'; 
 
 // 상품 데이터를 가져오는 커스텀 훅
 export function useProducts(categoryName = '') {
