@@ -3,7 +3,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 // Django 백엔드의 기본 URL
-const API_BASE_URL = 'http://127.0.0.1:8000/api'; 
+const API_BASE_URL = 'http://bbctest.waydraft.com:8001/api'; 
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
