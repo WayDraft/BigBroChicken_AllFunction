@@ -1,7 +1,21 @@
 version: '3.8'
 services:
-  app:
-    build: .
+  backend:
+    build:
+      context: ./store-backend
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    volumes: 
+      - ./store-backend:/app
+    restart: always
+
+  frontend:
+    build:
+      context: ./store-frontend
+      dockerfile: Dockerfile
     ports:
       - "3001:3001"
+    depends_on:
+      - backend
     restart: always
